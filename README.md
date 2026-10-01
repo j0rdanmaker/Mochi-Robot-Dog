@@ -60,3 +60,5 @@ firmware/build.sh                          # build the firmware
 
 `firmware/build.sh` passes extra arguments through to PlatformIO, e.g.
 `firmware/build.sh -t upload`.
+
+<img width="336" height="272" alt="image" src="https://github.com/user-attachments/assets/1aa0d4c3-1f10-4047-88b7-cb7a0cd4448a" />
