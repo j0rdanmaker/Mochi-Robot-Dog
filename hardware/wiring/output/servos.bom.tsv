@@ -1,0 +1,15 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 3 wires	0	m	W_M1, W_M10, W_M11, W_M12, W_M2, W_M3, W_M4, W_M5, W_M6, W_M7, W_M8, W_M9
+2	Connector, DS3225MG-class 25 kg-cm servo, 180 deg - FL shoulder (PWM0), 3 pins	1		M1
+3	Connector, DS3225MG-class 25 kg-cm servo, 180 deg - FR shoulder (PWM3), 3 pins	1		M4
+4	Connector, DS3225MG-class 25 kg-cm servo, 180 deg - RL shoulder (PWM6), 3 pins	1		M7
+5	Connector, DS3225MG-class 25 kg-cm servo, 180 deg - RR shoulder (PWM9), 3 pins	1		M10
+6	Connector, DS3235 35 kg-cm servo, 180 deg - FL lower limb (PWM2), 3 pins	1		M3
+7	Connector, DS3235 35 kg-cm servo, 180 deg - FL upper limb (PWM1), 3 pins	1		M2
+8	Connector, DS3235 35 kg-cm servo, 180 deg - FR lower limb (PWM5), 3 pins	1		M6
+9	Connector, DS3235 35 kg-cm servo, 180 deg - FR upper limb (PWM4), 3 pins	1		M5
+10	Connector, DS3235 35 kg-cm servo, 180 deg - RL lower limb (PWM8), 3 pins	1		M9
+11	Connector, DS3235 35 kg-cm servo, 180 deg - RL upper limb (PWM7), 3 pins	1		M8
+12	Connector, DS3235 35 kg-cm servo, 180 deg - RR lower limb (PWM11), 3 pins	1		M12
+13	Connector, DS3235 35 kg-cm servo, 180 deg - RR upper limb (PWM10), 3 pins	1		M11
+14	Connector, PCA9685 16-ch PWM servo driver, 36 pins	1		U3

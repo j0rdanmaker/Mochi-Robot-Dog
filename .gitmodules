@@ -1,0 +1,3 @@
+[submodule "firmware/leika"]
+	path = firmware/leika
+	url = https://github.com/runeharlyk/SpotMicroESP32-Leika

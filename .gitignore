@@ -1,0 +1,14 @@
+# Python tooling (uv-managed virtualenv)
+.venv/
+__pycache__/
+
+# PlatformIO build output (firmware/leika/.pio is inside the submodule and
+# already covered by its own .gitignore; this also covers any local build
+# dir at the repo root)
+.pio/
+
+# WireViz intermediate Graphviz source (rendered .png/.svg/.html are committed)
+hardware/wiring/output/*.gv
+
+# scratch/temp files
+*.tmp

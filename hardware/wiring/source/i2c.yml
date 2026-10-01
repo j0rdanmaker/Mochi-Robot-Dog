@@ -1,0 +1,82 @@
+# RobotDog - I2C bus wiring
+# ESP32 U1 (GPIO47 SDA, GPIO21 SCL, 3.3 V) -> shared bus hub -> PCA9685, GY-87, OLED, PAJ7620.
+# Source of truth: docs/DESIGN.md Section 3 (pin map) and Section 4 (I2C addresses).
+# Render: make -C hardware/wiring   (see ../Makefile / ../README.md)
+
+metadata:
+  title: RobotDog - I2C bus
+
+connectors:
+  U1:
+    type: Freenove ESP32-S3-WROOM CAM
+    pins: [3V3, GND, GPIO47, GPIO21]
+    pinlabels: ["3V3", "GND", "GPIO47 (SDA)", "GPIO21 (SCL)"]
+    notes: Only the I2C pins are shown here. Power and other GPIOs are on the other diagrams.
+
+  I2C_BUS:
+    type: Shared I2C bus distribution (hub - a small perma-proto strip with pin headers, or soldered splices)
+    pins: [3V3, GND, SDA, SCL]
+    notes: Not a discrete part. All 4 devices below tap the same 4 nodes; most breakouts already carry their own pull-ups.
+
+  U3:
+    type: PCA9685 16-ch PWM servo driver
+    pins: [VCC, GND, SDA, SCL]
+    notes: I2C 0x40 (0x70 all-call). OE pin left unconnected (always enabled). V+/GND power rail is on power.yml.
+
+  U4:
+    type: GY-87 (MPU6050 + HMC5883L + BMP180)
+    pins: ["3.3V", GND, SDA, SCL]
+    notes: >-
+      MPU6050 0x68, HMC5883L 0x1E (via MPU6050 bypass), BMP180 0x77. Feed the module's
+      3.3V pin, not VCC_IN. Buy the HMC5883L version - the QMC5883L clone (0x0D) does not
+      work with the upstream driver.
+
+  U5:
+    type: SSD1306 0.96in 128x64 I2C OLED
+    pins: [VCC, GND, SDA, SCL]
+    notes: I2C 0x3C.
+
+  U6:
+    type: PAJ7620U2 gesture sensor module
+    pins: [VIN, GND, SDA, SCL]
+    notes: I2C 0x73. INT pin not connected.
+
+cables:
+  W_U1_BUS:
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+    notes: Trunk from the ESP32 to the shared bus.
+  W_BUS_U3:
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+  W_BUS_U4:
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+  W_BUS_U5:
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+  W_BUS_U6:
+    wirecount: 4
+    colors: [RD, BK, GN, YE]
+
+connections:
+  -
+    - U1: [3V3, GND, GPIO47, GPIO21]
+    - W_U1_BUS: [1, 2, 3, 4]
+    - I2C_BUS: [3V3, GND, SDA, SCL]
+  -
+    - I2C_BUS: [3V3, GND, SDA, SCL]
+    - W_BUS_U3: [1, 2, 3, 4]
+    - U3: [VCC, GND, SDA, SCL]
+  -
+    - I2C_BUS: [3V3, GND, SDA, SCL]
+    - W_BUS_U4: [1, 2, 3, 4]
+    - U4: ["3.3V", GND, SDA, SCL]
+  -
+    - I2C_BUS: [3V3, GND, SDA, SCL]
+    - W_BUS_U5: [1, 2, 3, 4]
+    - U5: [VCC, GND, SDA, SCL]
+  -
+    - I2C_BUS: [3V3, GND, SDA, SCL]
+    - W_BUS_U6: [1, 2, 3, 4]
+    - U6: [VIN, GND, SDA, SCL]

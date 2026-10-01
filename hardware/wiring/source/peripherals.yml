@@ -1,0 +1,128 @@
+# RobotDog - ultrasonic, audio, mode button, camera
+# U7/U8 HC-SR04P (NewPing one-pin mode), U9 MAX98357A + LS1 speaker, SW2 mode button,
+# U2 camera (onboard FPC, documented only).
+# Source of truth: docs/DESIGN.md Section 1 (parts) and Section 3 (pin map).
+# Render: make -C hardware/wiring   (see ../Makefile / ../README.md)
+
+metadata:
+  title: RobotDog - peripherals
+
+connectors:
+  U1:
+    type: Freenove ESP32-S3-WROOM CAM
+    pins: [3V3, GND, GPIO1, GPIO14, GPIO41, GPIO42, GPIO2, GPIO38]
+    pinlabels:
+      - "3V3"
+      - "GND"
+      - "GPIO1 (USS left, TRIG+ECHO)"
+      - "GPIO14 (USS right, TRIG+ECHO)"
+      - "GPIO41 (I2S BCLK)"
+      - "GPIO42 (I2S LRCLK/WS)"
+      - "GPIO2 (I2S DOUT)"
+      - "GPIO38 (mode button, internal pull-up)"
+    notes: >-
+      Only the pins used here are shown. Power rails are on power.yml, I2C is on
+      i2c.yml. GPIO2's onboard LED flickers during audio (harmless, per DESIGN.md).
+
+  U7:
+    type: HC-SR04P (or RCWL-1601), 3.3V-capable - ultrasonic LEFT
+    pins: [1, 2, 3, 4]
+    pinlabels: [VCC, TRIG, ECHO, GND]
+    loops: [[2, 3]]
+    notes: >-
+      Powered at 3.3 V so ECHO is 3.3 V logic-safe. TRIG and ECHO tied together
+      (loop) for NewPing one-pin mode on GPIO1.
+
+  U8:
+    type: HC-SR04P (or RCWL-1601), 3.3V-capable - ultrasonic RIGHT
+    pins: [1, 2, 3, 4]
+    pinlabels: [VCC, TRIG, ECHO, GND]
+    loops: [[2, 3]]
+    notes: >-
+      Powered at 3.3 V so ECHO is 3.3 V logic-safe. TRIG and ECHO tied together
+      (loop) for NewPing one-pin mode on GPIO14.
+
+  U9:
+    type: MAX98357A I2S amp breakout
+    pins: [BCLK, LRC, DIN, GAIN, SD, "OUT+", "OUT-"]
+    notes: >-
+      VIN/GND power pins are on power.yml. GAIN left unconnected: floats to 9 dB
+      (module default). SD left unconnected: floats high, amplifier enabled
+      (module default). Headers hand-soldered per DESIGN.md.
+
+  LS1:
+    type: 3 W 4 Ohm speaker
+    pins: ["+", "-"]
+    notes: On the amp's screw terminal.
+
+  SW2:
+    type: 16/19 mm momentary push button, 5V LED ring
+    pins: ["NO", COM]
+    notes: Switch contacts only. LED ring wiring is on power.yml.
+
+cables:
+  W_U7_VCC: {colors: [RD], notes: 3.3 V.}
+  W_U7_GND: {colors: [BK]}
+  W_U7_SIG: {colors: [YE], notes: TRIG+ECHO to GPIO1.}
+  W_U8_VCC: {colors: [RD], notes: 3.3 V.}
+  W_U8_GND: {colors: [BK]}
+  W_U8_SIG: {colors: [YE], notes: TRIG+ECHO to GPIO14.}
+  W_U9_BCLK: {colors: [OG]}
+  W_U9_LRC: {colors: [YE]}
+  W_U9_DIN: {colors: [GN]}
+  W_U9_SPK: {wirecount: 2, colors: [RD, BK]}
+  W_SW2_NO: {colors: [YE]}
+  W_SW2_COM: {colors: [BK]}
+
+connections:
+  -
+    - U1: [3V3]
+    - W_U7_VCC: [1]
+    - U7: [VCC]
+  -
+    - U1: [GND]
+    - W_U7_GND: [1]
+    - U7: [GND]
+  -
+    - U1: [GPIO1]
+    - W_U7_SIG: [1]
+    - U7: [TRIG]
+
+  -
+    - U1: [3V3]
+    - W_U8_VCC: [1]
+    - U8: [VCC]
+  -
+    - U1: [GND]
+    - W_U8_GND: [1]
+    - U8: [GND]
+  -
+    - U1: [GPIO14]
+    - W_U8_SIG: [1]
+    - U8: [TRIG]
+
+  -
+    - U1: [GPIO41]
+    - W_U9_BCLK: [1]
+    - U9: [BCLK]
+  -
+    - U1: [GPIO42]
+    - W_U9_LRC: [1]
+    - U9: [LRC]
+  -
+    - U1: [GPIO2]
+    - W_U9_DIN: [1]
+    - U9: [DIN]
+  -
+    - U9: ["OUT+", "OUT-"]
+    - W_U9_SPK: [1, 2]
+    - LS1: ["+", "-"]
+
+  -
+    - SW2: ["NO"]
+    - W_SW2_NO: [1]
+    - U1: [GPIO38]
+  -
+    - SW2: [COM]
+    - W_SW2_COM: [1]
+    - U1: [GND]

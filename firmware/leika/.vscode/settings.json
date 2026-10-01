@@ -1,0 +1,32 @@
+{
+    "files.associations": {
+      "cmath": "cpp",
+      "array": "cpp",
+      "deque": "cpp",
+      "string": "cpp",
+      "unordered_map": "cpp",
+      "unordered_set": "cpp",
+      "vector": "cpp",
+      "string_view": "cpp",
+      "initializer_list": "cpp",
+      "regex": "cpp"
+    },
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "cmake.sourceDirectory": "C:/data/repos/Hardware/Spot_Micro_Leika",
+    "cSpell.words": [
+      "Adafruit",
+      "IRAM",
+      "Leika",
+      "lerp",
+      "MDNS",
+      "nipplejs",
+      "Psram",
+      "smnc",
+      "ssid",
+      "URDF",
+      "uzip",
+      "WEBSERVER",
+      "xacro"
+    ]
+}

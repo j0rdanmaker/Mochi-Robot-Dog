@@ -1,0 +1,25 @@
+[project]
+name = "simulation-leika"
+version = "0.1.0"
+description = "spot_pico quadruped RL: MuJoCo sim + SB3 PPO residual-gait training"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "gymnasium>=1.2.3",
+    "mujoco>=3.10.0",
+    "numpy>=2.4.4",
+    "scipy>=1.18.0",
+    "stable-baselines3[extra]>=2.0.0",
+    "tensorboard>=2.20.0",
+    "torch>=2.11.0",
+    "tqdm>=4.67.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

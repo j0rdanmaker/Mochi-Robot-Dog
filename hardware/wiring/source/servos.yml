@@ -1,0 +1,194 @@
+# RobotDog - servo wiring
+# PCA9685 U3 channels PWM 0-11 -> M1-M12 leg servos, upstream Leika channel order.
+# Source of truth: docs/DESIGN.md Section 1 (parts) and Section 5 (servo channel table).
+# Render: make -C hardware/wiring   (see ../Makefile / ../README.md)
+#
+# Each PCA9685 channel header has 3 physical pins (signal, V+, GND); V+/GND are a
+# common bussed rail on the board, fed from the screw-terminal V+/GND in power.yml.
+# Channels 12-15 are unused (not shown).
+
+metadata:
+  title: RobotDog - servo channels
+
+connectors:
+  U3:
+    type: PCA9685 16-ch PWM servo driver
+    pins:
+      - "PWM0_S"
+      - "PWM0_V"
+      - "PWM0_G"
+      - "PWM1_S"
+      - "PWM1_V"
+      - "PWM1_G"
+      - "PWM2_S"
+      - "PWM2_V"
+      - "PWM2_G"
+      - "PWM3_S"
+      - "PWM3_V"
+      - "PWM3_G"
+      - "PWM4_S"
+      - "PWM4_V"
+      - "PWM4_G"
+      - "PWM5_S"
+      - "PWM5_V"
+      - "PWM5_G"
+      - "PWM6_S"
+      - "PWM6_V"
+      - "PWM6_G"
+      - "PWM7_S"
+      - "PWM7_V"
+      - "PWM7_G"
+      - "PWM8_S"
+      - "PWM8_V"
+      - "PWM8_G"
+      - "PWM9_S"
+      - "PWM9_V"
+      - "PWM9_G"
+      - "PWM10_S"
+      - "PWM10_V"
+      - "PWM10_G"
+      - "PWM11_S"
+      - "PWM11_V"
+      - "PWM11_G"
+    pinlabels:
+      - "PWM0 (S) - FL shoulder"
+      - "PWM0 (V+)"
+      - "PWM0 (GND)"
+      - "PWM1 (S) - FL upper limb"
+      - "PWM1 (V+)"
+      - "PWM1 (GND)"
+      - "PWM2 (S) - FL lower limb"
+      - "PWM2 (V+)"
+      - "PWM2 (GND)"
+      - "PWM3 (S) - FR shoulder"
+      - "PWM3 (V+)"
+      - "PWM3 (GND)"
+      - "PWM4 (S) - FR upper limb"
+      - "PWM4 (V+)"
+      - "PWM4 (GND)"
+      - "PWM5 (S) - FR lower limb"
+      - "PWM5 (V+)"
+      - "PWM5 (GND)"
+      - "PWM6 (S) - RL shoulder"
+      - "PWM6 (V+)"
+      - "PWM6 (GND)"
+      - "PWM7 (S) - RL upper limb"
+      - "PWM7 (V+)"
+      - "PWM7 (GND)"
+      - "PWM8 (S) - RL lower limb"
+      - "PWM8 (V+)"
+      - "PWM8 (GND)"
+      - "PWM9 (S) - RR shoulder"
+      - "PWM9 (V+)"
+      - "PWM9 (GND)"
+      - "PWM10 (S) - RR upper limb"
+      - "PWM10 (V+)"
+      - "PWM10 (GND)"
+      - "PWM11 (S) - RR lower limb"
+      - "PWM11 (V+)"
+      - "PWM11 (GND)"
+    notes: >-
+      Channels 12-15 are unused and not shown. I2C (SDA/SCL/VCC) is on i2c.yml, the
+      V+/GND screw terminal is on power.yml. Upstream Leika channel order per
+      DESIGN.md Section 5.
+
+  M1:
+    type: DS3225MG-class 25 kg-cm servo, 180 deg - FL shoulder (PWM0)
+    pins: [S, "V+", GND]
+  M2:
+    type: DS3235 35 kg-cm servo, 180 deg - FL upper limb (PWM1)
+    pins: [S, "V+", GND]
+  M3:
+    type: DS3235 35 kg-cm servo, 180 deg - FL lower limb (PWM2)
+    pins: [S, "V+", GND]
+  M4:
+    type: DS3225MG-class 25 kg-cm servo, 180 deg - FR shoulder (PWM3)
+    pins: [S, "V+", GND]
+  M5:
+    type: DS3235 35 kg-cm servo, 180 deg - FR upper limb (PWM4)
+    pins: [S, "V+", GND]
+  M6:
+    type: DS3235 35 kg-cm servo, 180 deg - FR lower limb (PWM5)
+    pins: [S, "V+", GND]
+  M7:
+    type: DS3225MG-class 25 kg-cm servo, 180 deg - RL shoulder (PWM6)
+    pins: [S, "V+", GND]
+  M8:
+    type: DS3235 35 kg-cm servo, 180 deg - RL upper limb (PWM7)
+    pins: [S, "V+", GND]
+  M9:
+    type: DS3235 35 kg-cm servo, 180 deg - RL lower limb (PWM8)
+    pins: [S, "V+", GND]
+  M10:
+    type: DS3225MG-class 25 kg-cm servo, 180 deg - RR shoulder (PWM9)
+    pins: [S, "V+", GND]
+  M11:
+    type: DS3235 35 kg-cm servo, 180 deg - RR upper limb (PWM10)
+    pins: [S, "V+", GND]
+  M12:
+    type: DS3235 35 kg-cm servo, 180 deg - RR lower limb (PWM11)
+    pins: [S, "V+", GND]
+
+cables:
+  W_M1: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M2: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M3: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M4: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M5: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M6: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M7: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M8: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M9: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M10: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M11: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+  W_M12: {wirecount: 3, colors: [OG, RD, BN], notes: "3-pin servo cable. Use a 300 mm extension here if the stock lead is too short."}
+
+connections:
+  -
+    - U3: [PWM0_S, PWM0_V, PWM0_G]
+    - W_M1: [1, 2, 3]
+    - M1: [S, "V+", GND]
+  -
+    - U3: [PWM1_S, PWM1_V, PWM1_G]
+    - W_M2: [1, 2, 3]
+    - M2: [S, "V+", GND]
+  -
+    - U3: [PWM2_S, PWM2_V, PWM2_G]
+    - W_M3: [1, 2, 3]
+    - M3: [S, "V+", GND]
+  -
+    - U3: [PWM3_S, PWM3_V, PWM3_G]
+    - W_M4: [1, 2, 3]
+    - M4: [S, "V+", GND]
+  -
+    - U3: [PWM4_S, PWM4_V, PWM4_G]
+    - W_M5: [1, 2, 3]
+    - M5: [S, "V+", GND]
+  -
+    - U3: [PWM5_S, PWM5_V, PWM5_G]
+    - W_M6: [1, 2, 3]
+    - M6: [S, "V+", GND]
+  -
+    - U3: [PWM6_S, PWM6_V, PWM6_G]
+    - W_M7: [1, 2, 3]
+    - M7: [S, "V+", GND]
+  -
+    - U3: [PWM7_S, PWM7_V, PWM7_G]
+    - W_M8: [1, 2, 3]
+    - M8: [S, "V+", GND]
+  -
+    - U3: [PWM8_S, PWM8_V, PWM8_G]
+    - W_M9: [1, 2, 3]
+    - M9: [S, "V+", GND]
+  -
+    - U3: [PWM9_S, PWM9_V, PWM9_G]
+    - W_M10: [1, 2, 3]
+    - M10: [S, "V+", GND]
+  -
+    - U3: [PWM10_S, PWM10_V, PWM10_G]
+    - W_M11: [1, 2, 3]
+    - M11: [S, "V+", GND]
+  -
+    - U3: [PWM11_S, PWM11_V, PWM11_G]
+    - W_M12: [1, 2, 3]
+    - M12: [S, "V+", GND]

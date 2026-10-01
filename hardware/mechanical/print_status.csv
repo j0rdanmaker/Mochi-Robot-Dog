@@ -1,0 +1,51 @@
+Name,normal copies,mirrored copies,total amount,infill,total weight,Printed,Done
+Shoulder Joint Servomount,2,2,4,0.2,48g,?,FALSE
+Shoulder Joint Servohorn Cap,4,-,4,0.2,28g,?,FALSE
+Shoulder Joint Ball Bearing Pin,4,-,4,0.2,4g,?,FALSE
+Inner Shoulder,2,-,2,0.2,32g,2,TRUE
+Outer Shoulder,2,-,2,0.2,32g,0,FALSE
+Chassis Side,2,-,2,0.2,22g,2,TRUE
+Top Shoulder,2,-,2,0.2,20g,2,TRUE
+Bottom Shoulder,2,-,2,0.2,12g,2,TRUE
+LiPo Mountingbracket Front,1,-,1,0.2,5g,0,FALSE
+LiPo Mountingbracket Middle,1,-,1,0.2,3g,1,TRUE
+LiPo Mountingbracket Rear,1,-,1,0.2,7g,1,TRUE
+Circuitry Mountingplate for XL4016,1,-,1,0.2,56g,1,TRUE
+Circuitry Mountingplate for XL4016 with Extensions,1,-,1,0.2,66g,x,TRUE
+Circuitry Mountingplate for SZBK07,1,-,1,0.2,56g,x,TRUE
+Circuitry Mountingplate for SZBK07 with Extensions,1,-,1,0.2,66g,x,TRUE
+TTL Counterpiece,1,-,1,0.2,5g,0,FALSE
+Actual Circuitry Mountingplate Template,-,-,-,-,-,x,TRUE
+Simple Mountingplate Template,-,-,-,-,-,x,TRUE
+Shoulder Joint Servomount,2,2,4,0.2,48g,3,FALSE
+Shoulder Joint Servohorn Cap,4,-,4,0.2,28g,4,TRUE
+Shoulder Joint Ball Bearing Pin,4,-,4,0.2,4g,0,FALSE
+Limb Top Shell,2,2,4,0.2,92g,4,TRUE
+Limb Bottom Shell,2,2,4,0.2,100g,4,TRUE
+Limb Ball Bearing Mount long,2,2,4,0.2,20g,4,TRUE
+Limb Servohorn Mount long,2,2,4,0.2,20g,4,TRUE
+Wrist,2,2,4,0.2,104g,0,FALSE
+Wrist Counterpiece,2,2,4,0.2,36g,1,FALSE
+Shoulder Joint Ball Bearing Pin,4,-,4,0.2,4g,1,FALSE
+Foot Tip,4,-,4,0.2,24g,0,FALSE
+Front Cover Optimized,1,-,1,1,58g,1,TRUE
+Sensormount for the ESP32-CAM,1,-,1,0.2,17g,1,TRUE
+Cameramount for the ESP32-CAM,1,-,1,0.2,15g,1,TRUE
+Cameramount Counterpiece for the ESP32-CAM,1,-,1,0.2,4g,1,TRUE
+Sensormount (deprecated),1,-,1,0.2,17g,x,TRUE
+Cameramount (deprecated),1,-,1,0.2,15g,x,TRUE
+Rear Cover Shell Longer Version,1,-,1,1,40g,x,TRUE
+Rear Cover Plate,1,-,1,1,20g,1,TRUE
+Rear Cover Plate Template,-,-,-,1,20g,x,TRUE
+"Rear Cover Longer Version for the 1.8"" TFT with a SD-Card (deprecated)",1,-,1,1,63g,x,TRUE
+"Rear Cover Longer Version for the 1.77"" TFT without a SD-Card (deprecated)",1,-,1,1,63g,x,TRUE
+"Rear Cover for the 1.77"" TFT without a SD-Card (deprecated)",1,-,1,1,53g,1,TRUE
+Rear Cover Template,-,-,-,-,-,x,TRUE
+Top Cover Split Front,1,-,1,1,48g,1,TRUE
+Top Cover Split Rear (deprecated),1,-,1,1,28g,x,TRUE
+Top Cover Split Rear with OLED,1,-,1,1,28g,1,TRUE
+Top Cover Template,-,-,-,-,-,1,TRUE
+Bottom Cover Split Front,1,-,1,1,46g,1,TRUE
+Bottom Cover Split Rear,1,-,1,1,26g,1,TRUE
+Bottom Cover Template,-,-,-,-,-,x,TRUE
+Servohorn 6 B-Star,12,-,12,0.2,20g,8/12,FALSE

@@ -1,0 +1,234 @@
+syntax = "proto3";
+
+package socket_message;
+
+import "filesystem.proto";
+
+// Partial data types
+message Vector { float x = 1; float y = 2; }
+message I2CDevice { int32 address = 1; string part_number = 2; string name = 3; }
+message PinConfig { int32 pin = 1; string mode = 2; string type = 3; string role = 4; }
+message KnownNetworkItem { string ssid = 1; string password = 2; bool static_ip = 3; uint32 local_ip = 4; uint32 subnet_mask = 5; uint32 gateway_ip = 6; uint32 dns_ip_1 = 7; uint32 dns_ip_2 = 8; }
+
+// Individual message data types
+message IMUData {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float heading = 4;
+    float altitude = 5;
+    float bmp_temp = 6;
+    float pressure = 7;
+}
+
+// FEATURE DATA
+message FeaturesDataResponse {
+    string variant = 10;
+    string firmware_built_target = 20;
+    string firmware_name = 30;
+    string firmware_version = 40;
+    
+    bool camera = 50;
+    bool imu = 60;
+    bool mag = 70;
+    bool bmp = 80;
+    bool sonar = 90;
+    bool servo = 100;
+    bool ws2812 = 110;
+    bool mdns = 120;
+    bool embed_www = 130;
+}
+
+message FeaturesDataRequest { }
+
+// SYSTEM INFORMATION
+
+message SystemInformationRequest { }
+message SystemInformationResponse {
+    AnalyticsData analytics_data = 1;
+    StaticSystemInformation static_system_information = 2;
+}
+
+message CorrelationRequest {
+    uint32 correlation_id = 1;
+    oneof request {
+        FeaturesDataRequest features_data_request = 10;
+        I2CScanDataRequest i2c_scan_data_request = 20;
+        IMUCalibrateExecute imu_calibrate_execute = 30;
+        SystemInformationRequest system_information_request = 40;
+        FSDeleteRequest fs_delete_request = 50;
+        FSMkdirRequest fs_mkdir_request = 60;
+        FSListRequest fs_list_request = 70;
+        FSDownloadRequest fs_download_request = 80;
+        FSUploadStart fs_upload_start = 100;
+        FSCancelTransfer fs_cancel_transfer = 120;
+    }
+}
+
+message CorrelationResponse {
+    uint32 correlation_id = 1;
+    uint32 status_code = 2;
+    oneof response {
+        FeaturesDataResponse features_data_response = 10;
+        I2CScanData i2c_scan_data = 20;
+        IMUCalibrateData imu_calibrate_data = 30;
+        SystemInformationResponse system_information_response = 40;
+        FSDeleteResponse fs_delete_response = 50;
+        FSMkdirResponse fs_mkdir_response = 60;
+        FSListResponse fs_list_response = 70;
+        FSUploadStartResponse fs_upload_start_response = 100;
+        FSCancelTransferResponse fs_cancel_transfer_response = 120;
+    }
+}
+
+enum ModesEnum {
+    DEACTIVATED = 0;
+    IDLE = 1;
+    CALIBRATION = 2;
+    REST = 3;
+    STAND = 4;
+    WALK = 5;
+}
+
+message StaticSystemInformation {
+    string esp_platform = 1; 
+    string firmware_version = 2; 
+    uint32 cpu_freq_mhz = 3; 
+    string cpu_type = 4; 
+    int32 cpu_rev = 5; 
+    uint32 cpu_cores = 6; 
+    uint32 sketch_size = 7; 
+    uint32 free_sketch_space = 8; 
+    string sdk_version = 9; 
+    string arduino_version = 10; 
+    uint32 flash_chip_size = 11; 
+    uint32 flash_chip_speed = 12; 
+    string cpu_reset_reason = 13; 
+}
+
+message IMUCalibrateData { bool success = 1; }
+
+message IMUCalibrateExecute {}
+
+message ModeData { ModesEnum mode = 1; }
+
+message ControllerInputData {
+    Vector left = 1;
+    Vector right = 2;
+    float height = 3;
+    float speed = 4;
+    float s1 = 5;
+}
+
+message AnalyticsData {
+    int32 max_alloc_heap = 1;
+    int32 psram_size = 2;
+    int32 free_psram = 3;
+    int32 free_heap = 4;
+    int32 total_heap = 5;
+    int32 min_free_heap = 6;
+    float core_temp = 7;
+    int32 fs_total = 8;
+    int32 fs_used = 9;
+    int64 uptime = 10;
+    int32 cpu0_usage = 11;
+    int32 cpu1_usage = 12;
+    int32 cpu_usage = 13;
+}
+
+message ServoPWMData {
+    int32 servo_id = 1;
+    uint32 servo_pwm = 2;
+}
+
+message ServoStateData {
+    bool active = 1;
+}
+
+message AnglesData { repeated int32 angles = 1; }
+
+message I2CScanData { repeated I2CDevice devices = 1; }
+
+message I2CScanDataRequest {}
+
+message PeripheralSettingsData { int32 sda = 1; int32 scl = 2; int32 frequency = 3; repeated PinConfig pins = 4; }
+
+message PeripheralSettingsDataRequest {}
+
+message WifiSettingsData { string hostname = 1; bool priority_rssi = 2; repeated KnownNetworkItem wifi_networks = 3; }
+
+message RSSIData { int32 rssi = 1; }
+
+message DownloadOTAData { string status = 1; int32 progress = 2; string error = 3; }
+
+message SonarData { string dummy_field = 1; }
+
+message ControllerData {
+    Vector left = 10; Vector right = 11; float height = 20; float speed = 21; float s1 = 22;
+}
+
+message SystemInformation {
+    AnalyticsData analytics_data = 1; StaticSystemInformation static_system_information = 2;
+}
+
+enum WalkGaits {
+    TROT = 0;
+    CRAWL = 1;
+}
+
+message WalkGaitData {
+    WalkGaits gait = 1;
+}
+
+message KinematicData {
+    float omega = 1;
+    float phi = 2;
+    float psi = 3;
+    float xm = 4;
+    float ym = 5;
+    float zm = 6;
+}
+
+message SubscribeNotification { int32 tag = 1; }
+
+message UnsubscribeNotification {int32 tag = 1; }
+
+message PingMsg {}
+
+message PongMsg {}
+
+// WebSocket message wrapper
+message Message {
+    oneof message {
+        CorrelationRequest correlation_request = 10;
+        CorrelationResponse correlation_response = 11;
+        SubscribeNotification sub_notif = 20;
+        UnsubscribeNotification unsub_notif = 21;
+        PingMsg pingmsg = 30;
+        PongMsg pongmsg = 31;
+        // Streaming file transfer messages (fire-and-forget, no correlation)
+        FSDownloadMetadata fs_download_metadata = 39;
+        FSDownloadData fs_download_data = 40;
+        FSDownloadComplete fs_download_complete = 41;
+        FSUploadData fs_upload_data = 42;
+        FSUploadComplete fs_upload_complete = 43;
+        IMUData imu = 110;
+        IMUCalibrateData imu_calibrate = 120;
+        IMUCalibrateExecute imu_calibrate_execute = 121;
+        ModeData mode = 130;
+        ControllerInputData input = 140;
+        AnalyticsData analytics = 150;
+        WalkGaitData walk_gait = 160;
+        AnglesData angles = 170;
+        I2CScanData i2c_scan = 180;
+        I2CScanDataRequest i2c_scan_data_request = 181;
+        PeripheralSettingsData peripheral_settings = 190;
+        PeripheralSettingsDataRequest peripheral_settings_data_request = 191;
+        KinematicData kinematic_data = 200;
+        ServoPWMData servo_pwm = 210;
+        ServoStateData servo_state = 211;
+        WifiSettingsData wifi_settings = 240;
+        ControllerData controller_data = 250;
+        RSSIData rssi = 260;
+    }
+}

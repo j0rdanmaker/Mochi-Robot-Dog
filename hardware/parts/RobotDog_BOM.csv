@@ -1,0 +1,39 @@
+Ref,Category,Description,Qty Needed,Amazon Link,Already Have,Ordered,$/Item,Qty In Item,Qty To Order,Total Price,Extras,Notes
+U1,Controller,"Freenove ESP32-S3-WROOM CAM (N8R8, USB-C) main controller with bundled OV2640 camera (DESIGN.md U2)",1,https://a.co/d/05nr03tF,No,No,$19.95,1,1,$19.95,0,Get the 8 MB flash (N8R8) kit.
+U4,Sensors,GY-87 10-DOF IMU module (MPU6050 + HMC5883L + BMP180),1,https://a.co/d/0evNC5np,No,No,$13.98,5,1,$13.98,4,Must be HMC5883L; QMC5883L (0x0D) clones are not supported by the upstream driver. Check the chip after it arrives.
+U6,Sensors,"PAJ7620U2 gesture recognition sensor module, 9 hand gestures",1,https://a.co/d/0guiQUuV,No,No,$10.49,1,1,$10.49,0,(est.)
+"U7,U8",Sensors,"HC-SR04P (3.3 V-capable) ultrasonic distance sensor, 5-pack",2,https://a.co/d/06Udz26W,No,No,$5.99,2,1,$5.99,0,Front left/right (need 2 of 5). The old 5 V HC-SR04 is not 3.3 V-safe in one-pin mode; do not substitute.
+U3,Actuators,HiLetgo PCA9685 16-channel 12-bit PWM/Servo driver board,1,https://a.co/d/0iVQweyX,No,No,$13.99,2,1,$13.99,1,
+"M1,M4,M7,M10",Actuators,"DSSERVO DS3225MG 25 kg-cm 180-degree metal-gear digital servo, 4-pack (shoulders)",4,https://a.co/d/0hHIrBWt,No,No,$54.98,4,1,$54.98,0,180-degree version. 
+"M2,M3,M5,M6,M8,M9,M11,M12",Actuators,"DS3235 35 kg-cm coreless 180-degree digital servo, 2-pack (hips, knees)",8,https://a.co/d/027v6bOo,No,No,$30.69,2,4,$122.76,0,Check the listing's torque table: want ~32 kg-cm at 6 V (35 kg-cm @ 7.4 V). Avoid DS3235SG / 8.4 V versions (only ~27 kg-cm at our 6.3 V rail) and 270-degree versions.
+PS1,Power,300 W 20 A adjustable buck converter module with heatsinks (SZBK07 type),1,https://a.co/d/0bQUYJnL,No,No,$9.90,1,1,$9.90,0,Set to 6.3 V for the servo rail.
+PS2,Power,XL4015 5 A buck converter module with LED voltmeter,1,https://a.co/d/0e8PGeMC,No,No,$12.99,6,1,$12.99,5,Set to 5.0 V for the logic rail.
+BT1,Power,"2S 7.4 V 5200 mAh hard-case LiPo, XT60, 2-pack",1,https://a.co/d/0igi7Jwp,No,No,$16.99,1,1,$16.99,0,"~138x47x25 mm, ~250 g each; check it fits the printed body. 2-pack gives a spare for swaps."
+F1,Power,"Inline ATC blade fuse holder, 12 AWG, with 20/30/40 A fuses",1,https://a.co/d/01nNmfXO,No,No,$6.98,4,1,$6.98,3,Use the 20 A fuse.
+SW1,Power,"XT60 inline rocker main power switch, 30 A, with XT60 leads",1,https://a.co/d/0cqr6yiG,No,No,$17.99,1,1,$17.99,0,"Not anti-spark: the XT60 anti-spark modules found are for 3S-8S packs, not 2S. At 2S the connect spark is small."
+"R1,R2",Power,1/4 W through-hole resistor kit incl. 100k and 47k (battery-sense divider),1,https://www.amazon.com/dp/B008MH97I4,No,No,$9.95,,0,$0.00,-1,Skip if you already have 100k and 47k resistors.
+U9,Audio,MAX98357A I2S class-D amplifier breakout,1,https://a.co/d/0bTKkGus,No,No,$6.88,2,1,$6.88,1,
+LS1,Audio,"3 W 4-ohm 40 mm speaker, 2-pack",1,https://a.co/d/0e7x7qMr,No,No,$8.99,2,1,$8.99,1,Adafruit 3968 ($4.95) is out of stock.
+U5,UI,"SSD1306 0.96"" 128x64 I2C OLED display module",1,https://a.co/d/0edxMXPg,No,No,$9.99,3,1,$9.99,2,
+SW2,UI,16 mm momentary metal push button with 5 V LED ring (mode button + power-on light),1,https://a.co/d/0ga2wm9x,No,No,$7.49,1,1,$7.49,0,"Must be the 5 V LED version. Adafruit 481 ($4.95, 6 V LED) is out of stock."
+—,Harness,"Servo extension cable, 300 mm",4,https://a.co/d/07IDUnZi,No,No,$7.99,15,1,$7.99,11,Amazon link is a 10-pack.
+—,Harness,"14 AWG silicone wire, 20 ft red + 20 ft black",10,https://a.co/d/0hDzrqEY,No,No,$9.88,20,1,$9.88,10,~10ft needed
+—,Harness,"22 AWG silicone wire kit, 6 colors",30,https://a.co/d/0he00ZIX,No,No,$16.95,150,1,$16.95,120,~20ft needed
+—,Harness,"Amass XT60H connector pairs (male/female), 10 pairs",1,https://a.co/d/00SHROxq,No,No,$9.99,10,1,$9.99,9,
+—,Harness,"Dupont jumper wire kit, 120 pcs (M-F, M-M, F-F)",1,https://www.amazon.com/dp/B01EV70C78,No,No,,,0,$0.00,-1,
+—,Harness,"WAGO 221 lever connector assortment (221-412/413/415), for power/ground distribution",4,https://a.co/d/06cyWtGx,No,No,$25.95,8,0,$0.00,-4,Solder instead
+—,Harness,Heat shrink tubing assortment,1,https://a.co/d/0dZggJAK,No,No,$7.99,1,1,$7.99,0,
+—,Mechanical,"625ZZ deep groove ball bearings 5x16x5 mm, double shielded, 10-pack",12,https://a.co/d/0dtdLn0u,No,No,$7.89,25,1,$7.89,13,Need 12 (REQUIREMENTS B-5).
+—,Mechanical,"M2 x 8 mm socket head cap screws, stainless, 100-pack",84,https://a.co/d/00GUEqO6,No,No,$7.99,100,1,$7.99,16,Need 84 (REQUIREMENTS B-5).
+—,Mechanical,"M3 x 8 mm socket head cap screws, stainless, 100-pack",92,https://a.co/d/08k9iUNP,No,No,$6.86,100,1,$6.86,8,Need 92 (REQUIREMENTS B-5).
+—,Mechanical,"M3 x 20 mm socket head cap screws, stainless, 100-pack",64,https://a.co/d/05J76axt,No,No,$6.99,100,1,$6.99,36,Need 64 (REQUIREMENTS B-5).
+—,Mechanical,"M2 x 0.4 mm hex nuts, stainless, 100-pack",84,https://a.co/d/09dHX57F,No,No,$7.99,100,1,$7.99,16,Need 84 (REQUIREMENTS B-5).
+—,Mechanical,"M3 x 0.5 mm nylon insert lock nuts, 120-pack",156,https://a.co/d/06KlZL9m,No,No,$5.69,100,2,$11.38,44,Need 156 (REQUIREMENTS B-5).
+—,Support,"ISDT PD60S 60 W balance charger, XT60, USB-C input",1,https://a.co/d/0cJyZKtr,No,No,$17.98,1,1,$17.98,0,Needs a USB-C PD power supply (60 W for full rate).
+—,Support,"LiPo low-voltage checker/alarm, 1S-8S",1,https://a.co/d/0ifVDRqW,No,No,$5.99,1,1,$5.99,0,
+—,Support,"LiPo fireproof charging/storage bag, 2-pack",1,https://a.co/d/03SlpZyW,No,No,$14.39,1,1,$14.39,0,
+—,Future,"INMP441 I2S MEMS microphone module, 3-pack",1,https://a.co/d/0iWwmaVm,No,No,$9.99,3,0,$0.00,-1,"X-2: offline voice commands (future); shares I2S BCLK/WS with the amp, data on GPIO40."
+—,Future,TCA9548A I2C multiplexer breakout,1,https://a.co/d/06iKkjDw,No,No,$9.99,10,0,$0.00,-1,"X-3: OLED eyes mux, address 0x71 via A0 (0x70 collides with the PCA9685 all-call)."
+—,Future,"0.96"" SSD1306 I2C OLED display, 2-pack (eyes)",1,https://www.amazon.com/dp/B0D5MB9VHK,No,No,,,0,$0.00,-1,"X-3: two eyes, both 0x3C, behind the TCA9548A mux."
+—,Future,"OV5640 5 MP camera module, 24-pin FPC, 160-degree",1,https://www.amazon.com/dp/B0BVHTFKQG,No,No,,,0,$0.00,-1,X-6: camera upgrade; same 24-pin FPC as the bundled OV2640.
+,,,,,,,,,,$480.60,0,

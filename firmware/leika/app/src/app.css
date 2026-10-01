@@ -1,0 +1,48 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
+@plugin "daisyui" {
+    themes:
+        light --default,
+        dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+    name: 'light';
+    default: true;
+    --color-primary: #00bfff;
+    --color-secondary: #3c00ff;
+    --base-content: white;
+}
+
+@plugin "daisyui/theme" {
+    name: 'dark';
+    prefersdark: true;
+    --color-primary: #00bfff;
+    --color-secondary: #3c00ff;
+    --base-content: oklch(0.3 0.012 256);
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+#nipple_0_0,
+#nipple_1_1 {
+    z-index: 10 !important;
+}
+
+#three-gui-panel {
+    top: 64px;
+    right: 0px;
+}
+
+@media (max-width: 1023px) {
+    #three-gui-panel {
+        top: 48px;
+    }
+}

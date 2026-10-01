@@ -1,0 +1,9 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 1 wires	0	m	W_SW2_COM, W_SW2_NO, W_U7_GND, W_U7_SIG, W_U7_VCC, W_U8_GND, W_U8_SIG, W_U8_VCC, W_U9_BCLK, W_U9_DIN, W_U9_LRC
+2	Cable, 2 wires	0	m	W_U9_SPK
+3	Connector, 16/19 mm momentary push button, 5V LED ring, 2 pins	1		SW2
+4	Connector, 3 W 4 Ohm speaker, 2 pins	1		LS1
+5	Connector, Freenove ESP32-S3-WROOM CAM, 8 pins	1		U1
+6	Connector, HC-SR04P (or RCWL-1601), 3.3V-capable - ultrasonic LEFT, 4 pins	1		U7
+7	Connector, HC-SR04P (or RCWL-1601), 3.3V-capable - ultrasonic RIGHT, 4 pins	1		U8
+8	Connector, MAX98357A I2S amp breakout, 7 pins	1		U9

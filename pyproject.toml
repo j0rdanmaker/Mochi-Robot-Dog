@@ -1,0 +1,12 @@
+[project]
+name = "robotdog-tools"
+version = "0.1.0"
+description = "Build tooling for RobotDog (WireViz diagrams, PlatformIO firmware builds)"
+requires-python = ">=3.10"
+dependencies = [
+    "wireviz==0.4.1",
+    "platformio==6.2.0",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,143 @@
+# RobotDog - FUTURE provisions only (NOT INSTALLED)
+# Everything in this file is reserved wiring for parts that are not in the BOM yet.
+# See docs/DESIGN.md Section 7 and docs/REQUIREMENTS.md Section 7.
+# Render: make -C hardware/wiring   (see ../Makefile / ../README.md)
+#
+# FUTURE / NOT INSTALLED: U10 INMP441 mic (shares the I2S clock/word-select pins
+# with the installed MAX98357A amp), and the TCA9548A I2C mux + 2 eye OLEDs (share
+# the main I2C bus). None of the connectors below are populated on the robot today.
+
+metadata:
+  title: "RobotDog - future provisions (NOT INSTALLED)"
+
+connectors:
+  U1:
+    type: Freenove ESP32-S3-WROOM CAM
+    bgcolor: GY
+    pins: ["3V3", GND, GPIO41, GPIO42, GPIO40, GPIO47, GPIO21]
+    pinlabels:
+      - "3V3"
+      - "GND"
+      - "GPIO41 (I2S SCK, shared with U9 BCLK)"
+      - "GPIO42 (I2S WS, shared with U9 LRC)"
+      - "GPIO40 (I2S SD) - reserved, future only"
+      - "GPIO47 (SDA, shared main I2C bus)"
+      - "GPIO21 (SCL, shared main I2C bus)"
+    notes: >-
+      FUTURE ONLY - not installed. Only the pins used by future provisions are
+      shown here. GPIO41/42 and GPIO47/21 are already wired today (see
+      peripherals.yml and i2c.yml); this file shows the same nodes tapped for the
+      future parts below.
+
+  U10:
+    type: INMP441 I2S MEMS mic module
+    bgcolor: GY
+    pins: [VDD, GND, SCK, WS, SD, "L/R"]
+    notes: >-
+      FUTURE - NOT INSTALLED (DESIGN.md X-2). 3.3 V, less than 2 mA. Shares SCK/WS
+      with the installed MAX98357A on one full-duplex I2S port. Does not use the
+      microSD slot (GPIO40 is its data line).
+
+  TCA9548A:
+    type: TCA9548A 8-ch I2C mux breakout
+    bgcolor: GY
+    pins: [VIN, GND, SDA, SCL, A0, A1, A2, SD0, SC0, SD1, SC1]
+    notes: >-
+      FUTURE - NOT INSTALLED (DESIGN.md X-3). Address 0x71: A0 tied to 3.3V,
+      A1/A2 tied to GND. Sits on the main I2C bus alongside the devices in
+      i2c.yml. 0x70 is avoided (PCA9685 all-call).
+
+  EYE_L:
+    type: 0.96in or 1.3in I2C OLED (SSD1306/SH1106) - LEFT eye
+    bgcolor: GY
+    pins: [VCC, GND, SCL, SDA]
+    notes: FUTURE - NOT INSTALLED (DESIGN.md X-3). I2C 0x3C, on mux channel 0 (SD0/SC0).
+
+  EYE_R:
+    type: 0.96in or 1.3in I2C OLED (SSD1306/SH1106) - RIGHT eye
+    bgcolor: GY
+    pins: [VCC, GND, SCL, SDA]
+    notes: FUTURE - NOT INSTALLED (DESIGN.md X-3). I2C 0x3C, on mux channel 1 (SD1/SC1).
+
+cables:
+  W_U1_U10_VDD: {colors: [RD], notes: "FUTURE - not installed."}
+  W_U1_U10_GND: {colors: [BK], notes: "FUTURE - not installed."}
+  W_U1_U10_SCK: {colors: [OG], notes: "FUTURE - not installed. Shared with U9 BCLK."}
+  W_U1_U10_WS: {colors: [YE], notes: "FUTURE - not installed. Shared with U9 LRC."}
+  W_U1_U10_SD: {colors: [GN], notes: "FUTURE - not installed."}
+  W_U10_LR: {colors: [BK], notes: "FUTURE - not installed. L/R tied to GND (left channel)."}
+
+  W_U1_MUX_VIN: {colors: [RD], notes: "FUTURE - not installed."}
+  W_U1_MUX_GND: {colors: [BK], notes: "FUTURE - not installed."}
+  W_U1_MUX_SDA: {colors: [GN], notes: "FUTURE - not installed."}
+  W_U1_MUX_SCL: {colors: [YE], notes: "FUTURE - not installed."}
+  W_MUX_A0: {colors: [RD], notes: "FUTURE - not installed. Sets mux address 0x71."}
+  W_MUX_A1: {colors: [BK], notes: "FUTURE - not installed."}
+  W_MUX_A2: {colors: [BK], notes: "FUTURE - not installed."}
+
+  W_MUX_EYEL: {wirecount: 4, colors: [RD, BK, GN, YE], notes: "FUTURE - not installed. Channel 0."}
+  W_MUX_EYER: {wirecount: 4, colors: [RD, BK, GN, YE], notes: "FUTURE - not installed. Channel 1."}
+
+connections:
+  -
+    - U1: ["3V3"]
+    - W_U1_U10_VDD: [1]
+    - U10: [VDD]
+  -
+    - U1: [GND]
+    - W_U1_U10_GND: [1]
+    - U10: [GND]
+  -
+    - U1: [GPIO41]
+    - W_U1_U10_SCK: [1]
+    - U10: [SCK]
+  -
+    - U1: [GPIO42]
+    - W_U1_U10_WS: [1]
+    - U10: [WS]
+  -
+    - U1: [GPIO40]
+    - W_U1_U10_SD: [1]
+    - U10: [SD]
+  -
+    - U10: ["L/R"]
+    - W_U10_LR: [1]
+    - U1: [GND]
+
+  -
+    - U1: ["3V3"]
+    - W_U1_MUX_VIN: [1]
+    - TCA9548A: [VIN]
+  -
+    - U1: [GND]
+    - W_U1_MUX_GND: [1]
+    - TCA9548A: [GND]
+  -
+    - U1: [GPIO47]
+    - W_U1_MUX_SDA: [1]
+    - TCA9548A: [SDA]
+  -
+    - U1: [GPIO21]
+    - W_U1_MUX_SCL: [1]
+    - TCA9548A: [SCL]
+  -
+    - U1: ["3V3"]
+    - W_MUX_A0: [1]
+    - TCA9548A: [A0]
+  -
+    - U1: [GND]
+    - W_MUX_A1: [1]
+    - TCA9548A: [A1]
+  -
+    - U1: [GND]
+    - W_MUX_A2: [1]
+    - TCA9548A: [A2]
+
+  -
+    - TCA9548A: [VIN, GND, SD0, SC0]
+    - W_MUX_EYEL: [1, 2, 3, 4]
+    - EYE_L: [VCC, GND, SDA, SCL]
+  -
+    - TCA9548A: [VIN, GND, SD1, SC1]
+    - W_MUX_EYER: [1, 2, 3, 4]
+    - EYE_R: [VCC, GND, SDA, SCL]

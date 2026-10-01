@@ -1,0 +1,8 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 4 wires	0	m	W_BUS_U3, W_BUS_U4, W_BUS_U5, W_BUS_U6, W_U1_BUS
+2	Connector, Freenove ESP32-S3-WROOM CAM, 4 pins	1		U1
+3	Connector, GY-87 (MPU6050 + HMC5883L + BMP180), 4 pins	1		U4
+4	Connector, PAJ7620U2 gesture sensor module, 4 pins	1		U6
+5	Connector, PCA9685 16-ch PWM servo driver, 4 pins	1		U3
+6	Connector, SSD1306 0.96in 128x64 I2C OLED, 4 pins	1		U5
+7	Connector, Shared I2C bus distribution (hub - a small perma-proto strip with pin headers, or soldered splices), 4 pins	1		I2C_BUS

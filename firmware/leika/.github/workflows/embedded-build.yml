@@ -1,0 +1,50 @@
+name: PlatformIO CI
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "esp32/**"
+      - "platformio.ini"
+  pull_request:
+    branches: [master]
+    paths:
+      - "esp32/**"
+      - "platformio.ini"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - run: pip install -r esp32/scripts/requirements.txt
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Install Python dependencies for nanopb
+        run: pip install protobuf grpcio-tools
+
+      - name: Build Protocol Buffers (nanopb)
+        run: python ./submodules/nanopb/generator/nanopb_generator.py -I "./platform_shared/" -D esp32/src/platform_shared ./platform_shared/message.proto
+
+      - name: Build PlatformIO Project
+        run: pio run
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: esp32/build/firmware

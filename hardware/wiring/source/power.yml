@@ -1,0 +1,255 @@
+# RobotDog - power wiring
+# Battery -> fuse -> main switch -> power distribution -> PS1 (servo rail, 6.3 V)
+#                                                        -> PS2 (logic rail, 5.0 V)
+#                                                        -> battery-sense divider
+# Source of truth: docs/DESIGN.md Section 1 (parts) and Section 2 (power tree).
+# Render: make -C hardware/wiring   (see ../Makefile / ../README.md)
+
+metadata:
+  title: RobotDog - power
+
+connectors:
+  BT1:
+    type: 2S LiPo hard case, 5200-6200 mAh, XT60 male (7.4-8.4 V)
+    pins: ["+", "-"]
+
+  F1:
+    type: Inline ATC blade fuse holder, 12-14 AWG, 20 A fuse
+    pins: [IN, OUT]
+    notes: Main fuse. Mounted next to the battery connector, as close to BT1 as practical.
+
+  SW1:
+    type: Main power switch, 30 A DC or better (XT60 anti-spark switch or high-current rocker)
+    pins: [IN, OUT]
+    notes: Switches the battery + lead only. Rated for the full servo peak current.
+
+  PD_POS:
+    type: Solder splice - switched BATT+ distribution
+    style: simple
+    notes: >-
+      Not a discrete part - the 4 wires (SW1 out, PS1 IN+, PS2 IN+, R1 tap) are
+      twisted/laid together, soldered, and covered with heat shrink (adhesive-lined
+      if available). Feeds PS1, PS2, and the R1/R2 sense divider.
+
+  PD_NEG:
+    type: Solder splice - GND distribution (star ground point)
+    style: simple
+    notes: >-
+      Star ground point per DESIGN.md Section 2: the SW1 output side / buck input
+      negatives. All other grounds in the harness return here. Soldered and covered
+      with heat shrink, like PD_POS.
+
+  PS1:
+    type: SZBK07 20 A buck converter - set to 6.3 V, screw terminals
+    pins: [IN+, IN-, OUT+, OUT-]
+    notes: Servo rail. Verify 6.3 V at OUT+/OUT- with a multimeter before connecting the PCA9685.
+
+  PS2:
+    type: XL4015 5 A buck converter (with voltmeter) - set to 5.0 V, screw terminals
+    pins: [IN+, IN-, OUT+, OUT-]
+    notes: Logic rail. Verify 5.0 V at OUT+/OUT- before connecting the ESP32, amp, and LED ring.
+
+  U3:
+    type: PCA9685 16-ch PWM board (I2C 0x40, 0x70 all-call)
+    pins: [V+, GND]
+    notes: >-
+      Servo power rail only. SDA/SCL/VCC/OE are on i2c.yml, servo channel wiring is on
+      servos.yml. Reinforce V+ and GND with 16 AWG wire along the through-hole pads
+      per DESIGN.md.
+
+  U1:
+    type: Freenove ESP32-S3-WROOM CAM
+    pins: [5V, GND, GPIO3]
+    pinlabels: ["5V", "GND", "GPIO3 (ADC1_CH2, battery sense)"]
+    notes: Only power/sense pins shown here. I2C, ultrasonic, I2S, and button pins are on the other diagrams.
+
+  U9:
+    type: MAX98357A I2S amp breakout
+    pins: [VIN, GND]
+    notes: Only the power pins are shown here. I2S signal pins are on peripherals.yml.
+
+  SW2:
+    type: 16/19 mm momentary push button, 5 V LED ring
+    pins: ["LED+", "LED-"]
+    notes: >-
+      LED ring only (runs off the 5 V rail so it lights whenever logic power is on).
+      NO/COM switch contacts are on peripherals.yml.
+
+  R1:
+    type: 100 kOhm through-hole resistor (sense divider, battery side)
+    pins: [1, 2]
+
+  R2:
+    type: 47 kOhm through-hole resistor (sense divider, GND side)
+    pins: [1, 2]
+
+  VSENSE:
+    type: R1/R2 divider midpoint
+    style: simple
+    notes: 8.4 V (full charge) at BATT+ becomes 2.69 V here, into ESP32 GPIO3. Firmware reading is future (DESIGN.md X-4).
+
+cables:
+  W_BATT_F1:
+    colors: [RD]
+    gauge: 14 AWG
+    notes: BATT+ to fuse IN.
+  W_F1_SW1:
+    colors: [RD]
+    gauge: 14 AWG
+    notes: Fuse OUT to switch IN.
+  W_SW1_PDPOS:
+    colors: [RD]
+    gauge: 14 AWG
+    notes: Switched BATT+ (7.4-8.4 V) into the distribution splice.
+  W_BATT_PDNEG:
+    colors: [BK]
+    gauge: 14 AWG
+    notes: BATT- straight to the star ground point (not fused/switched).
+
+  W_PDPOS_PS1IN:
+    colors: [RD]
+    gauge: 14 AWG
+  W_PDNEG_PS1IN:
+    colors: [BK]
+    gauge: 14 AWG
+  W_PS1_U3POS:
+    colors: [RD]
+    gauge: 14 AWG
+    notes: 6.3 V servo rail.
+  W_PS1_U3GND:
+    colors: [BK]
+    gauge: 14 AWG
+
+  W_PDPOS_PS2IN:
+    colors: [RD]
+    gauge: 22 AWG
+  W_PDNEG_PS2IN:
+    colors: [BK]
+    gauge: 22 AWG
+  W_PS2_U1POS:
+    colors: [RD]
+    gauge: 22 AWG
+    notes: 5.0 V logic rail.
+  W_PS2_U1GND:
+    colors: [BK]
+    gauge: 22 AWG
+  W_PS2_U9POS:
+    colors: [RD]
+    gauge: 22 AWG
+    notes: 5.0 V, ~0.8 A peak per DESIGN.md.
+  W_PS2_U9GND:
+    colors: [BK]
+    gauge: 22 AWG
+  W_PS2_SW2POS:
+    colors: [RD]
+    gauge: 22 AWG
+  W_PS2_SW2GND:
+    colors: [BK]
+    gauge: 22 AWG
+
+  W_PDPOS_R1:
+    colors: [RD]
+    gauge: 22 AWG
+    notes: Switched BATT+ tap for the sense divider.
+  W_R1_VSENSE:
+    colors: [RD]
+    gauge: 22 AWG
+  W_VSENSE_R2:
+    colors: [RD]
+    gauge: 22 AWG
+  W_VSENSE_U1:
+    colors: [YE]
+    gauge: 22 AWG
+    notes: Sense signal to GPIO3.
+  W_R2_PDNEG:
+    colors: [BK]
+    gauge: 22 AWG
+
+connections:
+  -
+    - BT1: ["+"]
+    - W_BATT_F1: [1]
+    - F1: [IN]
+  -
+    - F1: [OUT]
+    - W_F1_SW1: [1]
+    - SW1: [IN]
+  -
+    - SW1: [OUT]
+    - W_SW1_PDPOS: [1]
+    - PD_POS: [1]
+  -
+    - BT1: ["-"]
+    - W_BATT_PDNEG: [1]
+    - PD_NEG: [1]
+
+  -
+    - PD_POS: [1]
+    - W_PDPOS_PS1IN: [1]
+    - PS1: [IN+]
+  -
+    - PD_NEG: [1]
+    - W_PDNEG_PS1IN: [1]
+    - PS1: [IN-]
+  -
+    - PS1: [OUT+]
+    - W_PS1_U3POS: [1]
+    - U3: [V+]
+  -
+    - PS1: [OUT-]
+    - W_PS1_U3GND: [1]
+    - U3: [GND]
+
+  -
+    - PD_POS: [1]
+    - W_PDPOS_PS2IN: [1]
+    - PS2: [IN+]
+  -
+    - PD_NEG: [1]
+    - W_PDNEG_PS2IN: [1]
+    - PS2: [IN-]
+  -
+    - PS2: [OUT+]
+    - W_PS2_U1POS: [1]
+    - U1: [5V]
+  -
+    - PS2: [OUT-]
+    - W_PS2_U1GND: [1]
+    - U1: [GND]
+  -
+    - PS2: [OUT+]
+    - W_PS2_U9POS: [1]
+    - U9: [VIN]
+  -
+    - PS2: [OUT-]
+    - W_PS2_U9GND: [1]
+    - U9: [GND]
+  -
+    - PS2: [OUT+]
+    - W_PS2_SW2POS: [1]
+    - SW2: ["LED+"]
+  -
+    - PS2: [OUT-]
+    - W_PS2_SW2GND: [1]
+    - SW2: ["LED-"]
+
+  -
+    - PD_POS: [1]
+    - W_PDPOS_R1: [1]
+    - R1: [1]
+  -
+    - R1: [2]
+    - W_R1_VSENSE: [1]
+    - VSENSE: [1]
+  -
+    - VSENSE: [1]
+    - W_VSENSE_R2: [1]
+    - R2: [1]
+  -
+    - VSENSE: [1]
+    - W_VSENSE_U1: [1]
+    - U1: [GPIO3]
+  -
+    - R2: [2]
+    - W_R2_PDNEG: [1]
+    - PD_NEG: [1]

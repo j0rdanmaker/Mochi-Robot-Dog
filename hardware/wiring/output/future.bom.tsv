@@ -1,0 +1,8 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 1 wires	0	m	W_MUX_A0, W_MUX_A1, W_MUX_A2, W_U10_LR, W_U1_MUX_GND, W_U1_MUX_SCL, W_U1_MUX_SDA, W_U1_MUX_VIN, W_U1_U10_GND, W_U1_U10_SCK, W_U1_U10_SD, W_U1_U10_VDD, W_U1_U10_WS
+2	Cable, 4 wires	0	m	W_MUX_EYEL, W_MUX_EYER
+3	Connector, 0.96in or 1.3in I2C OLED (SSD1306/SH1106) - LEFT eye, 4 pins	1		EYE_L
+4	Connector, 0.96in or 1.3in I2C OLED (SSD1306/SH1106) - RIGHT eye, 4 pins	1		EYE_R
+5	Connector, Freenove ESP32-S3-WROOM CAM, 7 pins	1		U1
+6	Connector, INMP441 I2S MEMS mic module, 6 pins	1		U10
+7	Connector, TCA9548A 8-ch I2C mux breakout, 11 pins	1		TCA9548A
