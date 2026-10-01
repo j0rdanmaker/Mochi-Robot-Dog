@@ -14,6 +14,9 @@ A hobby quadruped robot based on
 - 3D print status (Google Sheet, view-only link): [print status](https://docs.google.com/spreadsheets/d/1-Wo08JJC0JB-biMSTE-VE9PVILEnY6z2KyEfmW9u-KA/edit)
 - Firmware (upstream submodule + our overlay): [firmware/](firmware/)
 
+Picture of inspiration
+<img width="336" height="272" alt="image" src="https://github.com/user-attachments/assets/a67a8b38-f360-4715-aec9-1a250d36f8b5" />
+
 ## Repo layout
 
 ```
@@ -60,5 +63,3 @@ firmware/build.sh                          # build the firmware
 
 `firmware/build.sh` passes extra arguments through to PlatformIO, e.g.
 `firmware/build.sh -t upload`.
-
-<img width="336" height="272" alt="image" src="https://github.com/user-attachments/assets/1aa0d4c3-1f10-4047-88b7-cb7a0cd4448a" />
