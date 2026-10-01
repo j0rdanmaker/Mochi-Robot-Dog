@@ -15,6 +15,7 @@ A hobby quadruped robot based on
 - Firmware (upstream submodule + our overlay): [firmware/](firmware/)
 
 Picture of inspiration
+
 <img width="336" height="272" alt="image" src="https://github.com/user-attachments/assets/a67a8b38-f360-4715-aec9-1a250d36f8b5" />
 
 ## Repo layout
